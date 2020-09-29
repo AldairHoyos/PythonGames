@@ -65,26 +65,40 @@ def GuessTheNumber():
             if hiddennumber == guess:
                 print("\nWe have a winner! You have guessed the right number")
                 print("\nYou have won",player.bet,"dollars")
-                break
             else:
                 player.tries=player.tries-1
                 time.sleep(1)
                 print("\nSorry but you have made a wrong guess")
                 if player.tries > 0:
                     if hiddennumber < guess:
-                        time.sleep(1)
+                        time.sleep(2)
                         print("\nThe real number is lower than you might think")
                     else:
-                        time.sleep(1)
+                        time.sleep(2)
                         print("\nThe real number is higher than you might think")
                 else:
-                    time.sleep(1)
+                    time.sleep(2)
                     print("\nYou have run out of guesses, my friend")
-                    time.sleep(1)
+                    time.sleep(2)
                     print("\nThe number that we chose for you was: ",hiddennumber)
-                    time.sleep(1)
+                    time.sleep(2)
                     print("\nYou have lost",player.bet,"dollars")                    
-            
+                    time.sleep(2)
+            if hiddennumber == guess or player.tries == 0:
+                while True:
+                    print("\nAre you interested in playing again the game?")
+                    print("\n1. Yes, I'm interested")
+                    print("\n2. No, I want to go home")
+                    resp=int(input("Answer: "))
+                    if resp not in set([1,2]):
+                        print("\nSelect a valid option, please")
+                    else:
+                        if resp==1:
+                            print("\nNicely done, my friend. You're the kind of guy for this game")
+                            player.tries=6
+                            break
+                        else:
+                            break
         
     
       
