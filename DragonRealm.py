@@ -26,6 +26,28 @@ class Dragon:
         if attack == 3:
             return "Tail!"
 
+class Wonderer:
+    def __init__(self,name,age,warriortype):
+        self.name=name
+        self.age=age
+        self.warriortype=warriortype
+    
+    def defensemode(self):
+        if self.warriortype == "Swordman":
+            return "Protecting Shield"
+        if self.warriortype == "Bowman":
+            return "Avoiding Jump"
+        if self.warriortype == "Wizard":
+            return "Magic Shield"
+        
+    def attackmode(self):
+        if self.warriortype == "Swordman":
+            return "Sword Attack!"
+        if self.warriortype == "Bowman":
+            return "Arrow Attack!"
+        if self.warriortype == "Wizard":
+            return "Magic Attack!"
+
 def WarningMessage():
     print("Wizard: Hello and welcome, you lost traveler! You have entered to a dangerous land.")
     print("\nYou are in Dragons Land. In front of you, you see two caves.",end="")
