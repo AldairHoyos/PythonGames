@@ -50,11 +50,13 @@ class Wonderer:
 
 def WarningMessage():
     print("Wizard: Hello and welcome, you lost traveler! You have entered to a dangerous land.")
+    time.sleep(3)
     print("\nYou are in Dragons Land. In front of you, you see two caves.",end="")
     time.sleep(3)
     print(" In one cave there are endless treasures that will make you rich instantly.",end="")
     time.sleep(4)
     print(" Nevertheless, inside the other cave, there is a greedy and hungry dragon that can eat you alive without hesitation if it sees you.")
+    time.sleep(3)
     while True:
         print("\nDo you want to take a chance and enter to one of the caves and see if you're lucky one way or the other?")
         print("\n1. Yes, fortune rewards risky people! I have nothing to fear.")
@@ -66,20 +68,39 @@ def WarningMessage():
             break
     return answ
 
+def WonderersData():
+    warriors=["Swordman", "Bowman", "Magician"]
+    print("\n- Wizard: What is your name, Wonderer? ")
+    name=input("- Wonderer : ")
+    print(f"\n- Wizard: How old are you, {name}? ")
+    age=int(input(f"- {name} : "))
+    while True:
+        print("\n- Wizard: What kind of warrior are you? ")
+        print("\n1. Swordman")
+        print("\n2. Bowman")
+        print("\n3. Magician")
+        answ=int(input(f"- {name} : "))
+        if answ not in set([1,2,3]):
+            print("\n- Wizard: you have to be one of the above types of warrior, there are no others")
+        else:
+            break
+    return Wonderer(name, age, warriors[answ-1])
+
 def DragonRealm():
     answ=WarningMessage()
     if answ == 1:
-        print("\nAlright wonderer, you have to decide which cave you want to enter to")
+        warrior=WonderersData()  
+        print(f"\n - Wizard: Alright {warrior.name}, you have to decide which cave you want to enter to")
         while True:
             print("\nChoose a cave from the followings:")
             print("\n1. Left cave")
             print("\n2. Right cave")
-            answ=int(input("Decision: "))
+            answ=int(input(f"{warrior.name}'s Decision: "))
             if answ not in set([1,2]):
-                print("\nThere is not middle ground on this one, my friend.")
+                print("\n- Wizard: There is not middle ground on this one, my friend.")
             else:
                 break
-        cave=1
+        cave=random.randint(1,2)
         if answ==cave:
             dragon=Dragon()
             dragon.presentation()
