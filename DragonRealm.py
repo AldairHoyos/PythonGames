@@ -25,7 +25,6 @@ class Dragon:
             return "Claws!"
         if attack == 3:
             return "Tail!"
-        
 
 def WarningMessage():
     print("Wizard: Hello and welcome, you lost traveler! You have entered to a dangerous land.")
