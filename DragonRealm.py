@@ -49,7 +49,7 @@ class Wonderer:
             return "Magic Attack!"
 
 def WarningMessage():
-    print("Wizard: Hello and welcome, you lost traveler! You have entered to a dangerous land.")
+    print("- Wizard: Hello and welcome, you lost traveler! You have entered to a dangerous land.")
     time.sleep(3)
     print("\nYou are in Dragons Land. In front of you, you see two caves.",end="")
     time.sleep(3)
@@ -86,6 +86,32 @@ def WonderersData():
             break
     return Wonderer(name, age, warriors[answ-1])
 
+def Battle(warrior,dragon):
+    Wlife=2
+    Dlife=1
+    while Dlife > 0 and Wlife > 0:
+        print(f"\n{dragon.name}'s life = {Dlife}")
+        print(f"{warrior.name}'s life = {Wlife}")
+        dnumber=random.randint(1,3)
+        wnumber=random.randint(1,3)
+        time.sleep(2)
+        if wnumber==dnumber:
+            print(f"\n- {dragon.name}: "+dragon.attacks())
+            time.sleep(2)
+            print(f"\n- {warrior.name}: "+warrior.defensemode())
+            time.sleep(2)
+            print(f"\n- {warrior.name}: "+warrior.attackmode())
+            Dlife=Dlife-1
+        else:
+            time.sleep(2)
+            print(f"\n- {dragon.name}: "+dragon.attacks())
+            Wlife=Wlife-1
+        time.sleep(1)
+    if Dlife == 0:
+        print(f"\n- Wizard: You have defeated almighty {dragon.name}, you have been rewarded with treasures beyond your wildest dreams and recognition from all warriors in Dragon's land")
+    elif Wlife == 0:
+        print("\nLuck was not by your side! You have lost your life in exchage of greed!")
+
 def DragonRealm():
     answ=WarningMessage()
     if answ == 1:
@@ -105,9 +131,7 @@ def DragonRealm():
             dragon=Dragon()
             dragon.presentation()
             time.sleep(4)
-            print(f"\n{dragon.name} attack: " + dragon.attacks())
-            time.sleep(2)
-            print("\nLuck was not with you! You have lost your life in exchage of greed!")
+            Battle(warrior,dragon)
         else:
             print("\nYou lucky wonderer! You have made yourself rich!\nYou have found the the most valuable treasure of all time!")
     else:
