@@ -50,24 +50,36 @@ class HangedMan():
                 break
         return letter
     
-def LookInWord(letter,word):
-    index = 0
-    while True:
-        if letter == word[index]:
-            break
+def LookInWord(hanged,letter,word):
+    for i in range(len(word)):
+        if letter == word[i]:
+            hanged.lista[i]=letter
         else:
-            index=index+1
-    return index
+            pass
+
+def ShowResult(hanged):
+    print(f"\n{hanged.name}'s chances: {hanged.chances}")
+    print(f"\n{hanged.name}'s result: ",end="")
+    for i in range(len(hanged.lista)):
+        print(hanged.lista[i],end=" ")
     
-def CheckingResult(hanger,hanged,letter):
+def CheckingResult(hanger,hanged):
+    ShowResult(hanged)
     while True:
+        print("\n")
+        letter=hanged.hangedguess()
         if letter in hanger.word:
             print("\nYou have guessed a letter successfully")
-            hanged.lista[LookInWord(letter,hanger.word)] = letter
+            LookInWord(hanged,letter,hanger.word)
+            ShowResult(hanged)
         else:
             print("\nThe letter you chose is not part of the hidden word")
             hanged.chances=hanged.chances-1
-            print(hanged.lista)
+            ShowResult(hanged)
+        
+        if hanged.chances==0 or hanged.lista==list(hanger.word):
+            break
+        
 
 def WelcomingMessage():
     print('\nWelcome to "The Hangman Game".')
@@ -107,4 +119,10 @@ def TheHangmanGame():
         while True: 
             hanger.hangerword()
             player.fillblanks(hanger.word)
-            CheckingResult(hanger,player,player.hangedguess())
+            CheckingResult(hanger,player)
+            if player.chances==0:
+                print("\n\nYou could not guessed the word. You have lost the game, my friend")
+            else:
+                print(f"\n\nCongratulations, {player.name}! You have won the game!")
+            break
+                
