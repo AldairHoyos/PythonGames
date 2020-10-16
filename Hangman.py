@@ -19,9 +19,9 @@ class Hanger():
                 if word[i] not in string.ascii_letters:
                     val=False
             if val==False:
-                print("\nPlease, choose a valid word of the english language")
+                print("\nPlease, choose a valid word of the english language.")
             else:
-                print("\nNice pick, my friend")
+                print("\nNice pick, my friend.")
                 break
         self.word=word
         
@@ -36,17 +36,16 @@ class HangedMan():
         for i in range(len(word)):
             self.lista.append("_")
     
-    
     def hangedguess(self):
         while True:
             while True:
                 letter=input(f"{self.name}'s guess letter: ")
                 if len(letter) > 1:
-                    print("\nRemember that you should guess the word letter by letter and not the entire word at once")
+                    print("\nRemember that you should guess the word letter by letter and not the entire word at once.")
                 else:
                     break
             if letter not in string.ascii_letters:
-                print("\nPlease, choose a valid letter of the english language")
+                print("\nPlease, choose a valid letter of the english language.")
             else:
                 break
         return letter
@@ -59,7 +58,7 @@ def LookInWord(hanged,letter,word):
             pass
 
 def ShowResult(hanged):
-    print(f"\n{hanged.name}'s chances: {hanged.chances}")
+    print(f"\n{hanged.name}'s chances: {hanged.chances}.")
     print(f"\n{hanged.name}'s result: ",end="")
     for i in range(len(hanged.lista)):
         print(hanged.lista[i],end=" ")
@@ -70,11 +69,11 @@ def CheckingResult(hanger,hanged):
         print("\n")
         letter=hanged.hangedguess()
         if letter in hanger.word:
-            print("\nYou have guessed a letter successfully")
+            print("\nYou have guessed a letter successfully.")
             LookInWord(hanged,letter,hanger.word)
             ShowResult(hanged)
         else:
-            print("\nThe letter you chose is not part of the hidden word")
+            print("\nThe letter you chose is not part of the hidden word.")
             hanged.chances=hanged.chances-1
             ShowResult(hanged)
         if hanged.chances==0 or hanged.lista==list(hanger.word):
@@ -132,7 +131,7 @@ def TheHangmanGame():
             player.fillblanks(hanger.word)
             CheckingResult(hanger,player)
             if player.chances==0:
-                print("\n\nYou could not guessed the word. You have lost the game, my friend")
+                print("\n\nYou could not guessed the word. You have lost the game, my friend.")
             else:
                 print(f"\n\nCongratulations, {player.name}! You have won the game!")
             answ=Playagain()
@@ -142,6 +141,3 @@ def TheHangmanGame():
             else:
                 print("\nGoodbye, My friend. See you next time!")
                 break
-                
-            
-                
