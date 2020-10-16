@@ -64,16 +64,21 @@ def ShowResult(hanged):
         print(hanged.lista[i],end=" ")
     
 def CheckingResult(hanger,hanged):
+    picks=list()
     ShowResult(hanged)
     while True:
         print("\n")
         letter=hanged.hangedguess()
-        if letter in hanger.word:
+        if letter in picks:
+            print("\nYou have already said this letter before, choose another one.")
+        elif letter in hanger.word:
             print("\nYou have guessed a letter successfully.")
+            picks.append(letter)
             LookInWord(hanged,letter,hanger.word)
             ShowResult(hanged)
         else:
             print("\nThe letter you chose is not part of the hidden word.")
+            picks.append(letter)
             hanged.chances=hanged.chances-1
             ShowResult(hanged)
         if hanged.chances==0 or hanged.lista==list(hanger.word):
