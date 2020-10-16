@@ -32,6 +32,7 @@ class HangedMan():
         self.lista=list()
     
     def fillblanks(self,word):
+        self.lista=list()
         for i in range(len(word)):
             self.lista.append("_")
     
@@ -76,11 +77,9 @@ def CheckingResult(hanger,hanged):
             print("\nThe letter you chose is not part of the hidden word")
             hanged.chances=hanged.chances-1
             ShowResult(hanged)
-        
         if hanged.chances==0 or hanged.lista==list(hanger.word):
             break
         
-
 def WelcomingMessage():
     print('\nWelcome to "The Hangman Game".')
     time.sleep(2)
@@ -108,6 +107,18 @@ def WelcomingMessage():
             break
     return answ
 
+def Playagain():
+    while True:
+        print("\nDo you want to play again?")
+        print("\n1. Yes, I definetely want to play again!")
+        print("\n2. No, enough is enough.")
+        answ=int(input("Answer from player: "))
+        if answ not in set([1,2]):
+            print("\nPlease, select one of the possible options.")
+        else:
+            break
+    return answ
+
 def TheHangmanGame():
     play = WelcomingMessage()
     if play == 2:
@@ -124,5 +135,13 @@ def TheHangmanGame():
                 print("\n\nYou could not guessed the word. You have lost the game, my friend")
             else:
                 print(f"\n\nCongratulations, {player.name}! You have won the game!")
-            break
+            answ=Playagain()
+            if answ == 1:
+                print("\nThat's the kind of people I like the most! Keep on playing!")
+                hanger.word=""
+            else:
+                print("\nGoodbye, My friend. See you next time!")
+                break
+                
+            
                 
