@@ -28,7 +28,7 @@ class Hanger():
 class HangedMan():
     def __init__(self):
         self.name="Player"
-        self.chances=5
+        self.chances=7
         self.lista=list()
     
     def fillblanks(self,word):
@@ -62,32 +62,48 @@ def ShowResult(hanged):
     print(f"\n{hanged.name}'s result: ",end="")
     for i in range(len(hanged.lista)):
         print(hanged.lista[i],end=" ")
+    print()
+    
+def ShowPictures(chances):
+    HangmanPictures=[" +----+\n      |\n      |\n      |\n      |\n     ==="," +----+\n O    |\n      |\n      |\n      |\n     ==="," +----+\n O    |\n/     |\n      |\n      |\n     ==="," +----+\n O    |\n/ \   |\n      |\n      |\n     ==="," +----+\n O    |\n/|\   |\n      |\n      |\n     ==="," +----+\n O    |\n/|\   |\n |    |\n      |\n     ==="," +----+\n O    |\n/|\   |\n |    |\n/     |\n     ==="," +----+\n O    |\n/|\   |\n |    |\n/ \   |\n     ==="]
+    print()
+    print(HangmanPictures[7-chances])
+    print()
     
 def CheckingResult(hanger,hanged):
     picks=list()
     ShowResult(hanged)
     while True:
-        print("\n")
         letter=hanged.hangedguess()
         if letter in picks:
+            time.sleep(1)
             print("\nYou have already said this letter before, choose another one.")
         elif letter in hanger.word:
+            time.sleep(1)
             print("\nYou have guessed a letter successfully.")
             picks.append(letter)
             LookInWord(hanged,letter,hanger.word)
+            time.sleep(2)
+            ShowPictures(hanged.chances)
+            time.sleep(1)
             ShowResult(hanged)
+            time.sleep(1)
         else:
             print("\nThe letter you chose is not part of the hidden word.")
             picks.append(letter)
             hanged.chances=hanged.chances-1
+            time.sleep(2)
+            ShowPictures(hanged.chances)
+            time.sleep(1)
             ShowResult(hanged)
+            time.sleep(1)
         if hanged.chances==0 or hanged.lista==list(hanger.word):
             break
         
 def WelcomingMessage():
     print('\nWelcome to "The Hangman Game".')
     time.sleep(2)
-    print("\nIn this game someone will radonmly indicate a word for you to guess.")
+    print("\nIn this game someone will randomly indicate a word for you to guess.")
     time.sleep(3)
     print("\nConsequently, you will try to guess the entire word by indicating a letter for such word.")
     time.sleep(4)
@@ -95,7 +111,7 @@ def WelcomingMessage():
     time.sleep(4)
     print("\nNevertheless, if you don't guess any letter in the word, you loose a point.")
     time.sleep(3)
-    print("\nYou have a total of 5 points with you to try to guess the entire word.")
+    print("\nYou have a total of 7 points with you to try to guess the entire word.")
     time.sleep(3)
     print("\nIf you loose all your points, you loose the game, but if you guess the word, you win!")
     time.sleep(3)
