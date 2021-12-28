@@ -122,7 +122,6 @@ def WelcomingMessage():
         answ=int(input("Answer from player: "))
         if answ not in set([1,2]):
             print("\nPlease, select one of the possible options.")
-            return False
         else:
             break
     return answ
