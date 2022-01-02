@@ -69,3 +69,28 @@ class Naipe():
             return True
         else:
             return False
+    
+class Mazo():
+    def __init__(self):
+        self.mazo = list()
+        for i in range(1,5):
+            for j in range(1,13):
+                self.mazo.append(Naipe(i,j))
+    
+    def barajar(self):
+        import random
+        random.shuffle(self.mazo)
+        
+    def __repr__(self):
+        return "Mazo de cartas españolas"
+    
+    def __str__(self):
+        print("\nCartas en el mazo de cartas\n")
+        message = ""
+        for i in range(len(self.mazo)):
+            message = message + str(self.mazo[i]) + "\n"
+        return message
+    
+    
+    
+    
