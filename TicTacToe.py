@@ -18,10 +18,10 @@ class Player:
         self.letter = None
     
     def __repr__(self):
-        return "I'm an addicted player of Tic Tac Toe"
+        return "Soy un jugador adicto al juego de Tic Tac Toe"
     
     def __str__(self):
-        return "Soy" + self.name + "y juego con las" + self.letter + "'s"
+        return "Soy " + self.name + " y juego con las " + self.letter + "'s"
     
     def get_letter(self):
         while True:
@@ -32,10 +32,46 @@ class Player:
             else:
                 self.letter = letter
                 break
-
+    
+    @staticmethod
+    def checkboard(board):
+        posible = list()
+        for i in range(1,len(board)):
+            if board[i] == " ":
+                posible.append(i)
+        return posible
+    
+    def make_move(self, board):
+        while True:
+            try:
+                print("\nSeleccione una de las posibiles posiciones en el tablero:\n")
+                posible = Player.checkboard(board)
+                print("Posiciones disponibles: ", end = " ")
+                for i in posible:
+                    print(f"{i}", end = ", ")
+                select = int(input("Posición: "))
+                if select not in posible:
+                    print("\nLa opción seleccionada no es válida")
+                    continue
+                else:
+                    break
+            except:
+                print("\nLa respuesta dada no tiene sentido respecto a las posibles opciones... Escoja de nuevo")
+        board[select] = self.letter
+        
+    def winning(self, board):
+        if (board[1] == board[2] == board[3] == self.letter) or (board[4] == board[5] == board[6] == self.letter) or (board[7] == board[8] == board[9] == self.letter):
+            return True
+        if (board[1] == board[4] == board[7] == self.letter) or (board[2] == board[5] == board[8] == self.letter) or (board[3] == board[6] == board[9] == self.letter):
+            return True
+        if (board[1] == board[5] == board[9] == self.letter) or (board[3] == board[5] == board[7] == self.letter):
+            return True
+        return False
+    
 class Computer(Player):
     def __init__(self, name = "cpu", letter = None):
-        super().__init__(name, letter)
+        self.name = name
+        self.letter = letter
         
 
 class TicTacToe:
@@ -60,3 +96,5 @@ class TicTacToe:
             return self.cpu.name
         else:
             return self.player.name
+    
+    
