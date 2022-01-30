@@ -241,13 +241,25 @@ class TicTacToe:
         self.player = player
         self.cpu = cpu
     
+    @staticmethod
+    def show_board(board):
+        copy = board.copy()
+        copy.reverse()
+        for i in [1,4,7]:
+            print("|   {}   |   {}   |   {}   |\n".format(copy[i], copy[i+1], copy[i+2]))
+            
     @classmethod
-    def show_board(cls):
-        print("|   {}   |   {}   |   {}   |".format(cls.board[7],cls.board[8],cls.board[9]))
-        print("*       *       *       *")
-        print("|   {}   |   {}   |   {}   |".format(cls.board[4],cls.board[5],cls.board[6]))
-        print("*       *       *       *")
-        print("|   {}   |   {}   |   {}   |".format(cls.board[1],cls.board[2],cls.board[3]))
+    def board_restart(cls):
+        cls.board = [" "]*10
+    
+    @classmethod
+    def draw(cls):
+        val = True
+        for i in range(1,10):
+            if cls.board[i] == " ":
+                val = False
+                break
+        return val
     
     def who_plays_first(self):
         from random import randint
@@ -271,26 +283,46 @@ class TicTacToe:
         if turn == game.cpu:
             turn.get_letter()
             game.player.other_letter(game.cpu.letter)
-            
-            #Verificar si puedo ganar en el proximo movimiento
-            val = turn.win_horizontal(cls.board)
-            if val == False:
-                val = turn.win_vertical(cls.board)
-                if val == False:
-                    turn.win_diagonal(cls.board)
-                    if val == False: # #Verificar que tengo que bloquear al oponente
-                        val = turn.block_horizontal(cls.board,game.player.letter)
-                        if val == False:
-                            val = turn.block_vertical(cls.board,game.player.letter)
-                            if val == False:
-                                val = turn.block_diagonal(cls.board,game.player.letter)
-                                if val == False: #Jugamos aleatorimente
-                                    turn.pick_position(cls.board, game.cpu.posible_options(cls.board))             
         else:
             turn.get_letter()
             game.cpu.other_letter(game.cpu.letter)
-            turn.make_move(cls.board)
-        cls.show_board()
+        while True:
+            if turn == game.cpu:
+                wincpu = turn.win_horizontal(cls.board)
+                if wincpu == False:
+                    wincpu = turn.win_vertical(cls.board)
+                    if wincpu == False:
+                        wincpu = turn.win_diagonal(cls.board)
+                        if wincpu == False: #Verificar que tengo que bloquear al oponente
+                            val = turn.block_horizontal(cls.board,game.player.letter)
+                            if val == False:
+                                val = turn.block_vertical(cls.board,game.player.letter)
+                                if val == False:
+                                    val = turn.block_diagonal(cls.board,game.player.letter)
+                                    if val == False: #Jugamos aleatorimente
+                                        turn.pick_position(cls.board, game.cpu.posible_options(cls.board))
+                if wincpu == True:
+                    print("\nHa ganado la computadora")
+                    break
+                elif wincpu == False and cls.draw() == True:
+                    print("\nHay un empate entre los oponentes")
+                    break
+                else:
+                    turn = game.player
+            else:
+                turn.make_move(cls.board)
+                if turn.winning(cls.board) == True:
+                    print("\nHa ganado el jugador")
+                    break
+                elif turn.winning(cls.board) == False and cls.draw() == True:
+                    print("\nHay un empate entre los oponentes")
+                    break
+                else:
+                    turn = game.cpu
+        cls.board_restart()
+
+#Hay que resolver el despliegue del tablero en pantalla.
+                
         
         
         
